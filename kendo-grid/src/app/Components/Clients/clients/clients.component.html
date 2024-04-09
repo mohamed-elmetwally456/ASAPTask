@@ -1,0 +1,58 @@
+<div class="container">
+  <kendo-grid
+    [data]="allClients"
+    [kendoGridBinding]="allClients"
+    [pageable]="true"
+    [pageSize]="10"
+    [sortable]="true"
+    [filterable]="true"
+    (dataStateChange)="onStateChange($event)"
+    (edit)="editHandler($event, $event.dataItem.clientId)"
+    (remove)="removeHandler($event.dataItem.clientId)"
+    (add)="addHandler()"
+  >
+    <ng-template kendoGridToolbarTemplate>
+      <button kendoGridAddCommand>Add Client</button>
+    </ng-template>
+    <kendo-grid-column
+      field="clientId"
+      title="ID"
+      [width]="65"
+      [filterable]="false"
+    >
+    </kendo-grid-column>
+    <kendo-grid-column
+      [filterable]="true"
+      field="firstName"
+      title="FirstName"
+    ></kendo-grid-column>
+    <kendo-grid-column
+      [filterable]="true"
+      field="lastName"
+      title="LastName"
+    ></kendo-grid-column>
+    <kendo-grid-column
+      [filterable]="false"
+      field="email"
+      title="Email"
+    ></kendo-grid-column>
+    <kendo-grid-column
+      [filterable]="false"
+      field="phoneNumber"
+      title="PhoneNumber"
+    ></kendo-grid-column>
+    <kendo-grid-command-column title="command" [width]="220">
+      <ng-template kendoGridCellTemplate>
+        <button kendoGridEditCommand [primary]="true">Edit</button>
+        <button kendoGridRemoveCommand>Delete</button>
+      </ng-template>
+    </kendo-grid-command-column>
+  </kendo-grid>
+  <app-dialog
+    [model]="editDataItem"
+    [isNew]="isNew"
+    (save)="saveHandler($event)"
+    (cancel)="cancelHandler()"
+  >
+  </app-dialog>
+</div>
